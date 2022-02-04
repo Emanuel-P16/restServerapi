@@ -1,35 +1,54 @@
 const { response,request } = require('express')
-const usuariosGet  = (req = request,res = response)=> {
+const Usuario = require('../models/usuario')
+const bcryptjs = require('bcryptjs')
+
+
+
+const usuariosGet  = async(req = request,res = response)=> {
 
     // const query = req.query;
-    const { q,nombre = 'no name', page = '1', apikey} = req.query
+    // const { q,nombre = 'no name', page = '1', apikey} = req.query
+    const usuarios = await Usuario.find()
     res.json({
-        ok:true,
-        msg: 'get API - controller',
-        q,
-        nombre,
-        apikey 
+        usuarios
     })
 }
 
-const usuariosPut = (req,res)=>{
+const usuariosPut = async(req,res)=>{
 
-    const id = req.params.id
+    const {id  } = req.params;
+    const { _id,password , google, correo, ...resto} = req.body
+
+    // TODO VALIDAR CONTRA BASE DE DATOS
+    if ( password ){
+        const salt = bcryptjs.genSaltSync();
+        resto.password = bcryptjs.hashSync(password,salt)
+    }
+    const usuario = await Usuario.findByIdAndUpdate( id, resto,{new:true});
     res.json({
-        ok:true,
-        msg: 'PUT API - controller',
-        id
+        usuario
     })
 }
-const usuariosPost = (req = request,res)=>{
+const usuariosPost = async(req = request,res)=>{
     // const body = req.body;
-    const { nombre , edad} = req.body
-
+   
+    const {nombre,correo,password,role} = req.body
+    const usuario = new Usuario({ nombre, correo, password,role})
+   
+     // verificar si el correo existe
+    // const existeEmail = await Usuario.findOne({correo})
+    // if (existeEmail) {
+    //     return  res.status(400).json({
+    //         msg: 'ese correo ya está registrado'
+    //     })
+    // }
+     //encriptar la contraseña
+        const salt = bcryptjs.genSaltSync() 
+        usuario.password = bcryptjs.hashSync(password,salt)
+     //guardar en BD
+    await usuario.save();
     res.json({
-        ok:true,
-        msg: 'POST API - controller',
-        nombre,
-        edad
+        usuario
     })
 }
 const usuariosDelete = (req,res)=>{

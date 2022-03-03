@@ -67,19 +67,29 @@ const usuariosPost = async(req = request,res)=>{
         usuario
     })
 }
-const usuariosDelete = (req,res)=>{
+const usuariosDelete = async(req,res)=>{
 
+     const {id} = req.params
+     // Borrado fisicamente
 
-    res.json({
-        ok:true,
-        msg: 'DELETE API - controller'
+    //  const usuario = await Usuario.findByIdAndDelete(id)
+
+    // Desactivacion usuario
+    const usuario = await Usuario.findByIdAndUpdate(id, {
+        estado: false
+    })
+     res.json({
+        usuario
     })
 }
 
 const usuariosPatch = (req,res)=>{
+
+    const { id } = req.params
     res.json({
         ok:true,
-        msg: 'PATCH API - controller'
+        msg: 'PATCH API - controller',
+        id
     })
 }
 

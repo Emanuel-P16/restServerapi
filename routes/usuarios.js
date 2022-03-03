@@ -30,7 +30,10 @@ const router = Router();
         check('correo').custom(esMailValido),
         validarCampos
     ],usuariosPost)
-    router.delete('/',usuariosDelete)
+    router.delete('/:id',[
+        check('id', "No es un ID válido").isMongoId(),
+        check('id').custom(existeUsuarioPorId),
+    ],usuariosDelete)
     router.patch('/',usuariosPatch)
 
 

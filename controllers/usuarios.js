@@ -70,6 +70,7 @@ const usuariosPost = async(req = request,res)=>{
 const usuariosDelete = async(req,res)=>{
 
      const {id} = req.params
+
      // Borrado fisicamente
 
     //  const usuario = await Usuario.findByIdAndDelete(id)
@@ -80,6 +81,7 @@ const usuariosDelete = async(req,res)=>{
     })
      res.json({
         usuario
+        
     })
 }
 

@@ -4,9 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso denegado</title>
+    <title>Google Sign IN</title>
 </head>
 <body>
-    <h1>Acceso denegado</h1>
+    <h1>Google Sigg in</h1>
+
+            <div id="g_id_onload"
+            data-client_id="763381515745-uf91skh6qsndor7ooc3vj1oh7l2scgej.apps.googleusercontent.com"
+            data-callback="handleCredentialResponse"
+            data-auto_prompt="false">
+        </div>
+        <div class="g_id_signin"
+            data-type="standard"
+            data-size="large"
+            data-theme="outline"
+            data-text="sign_in_with"
+            data-shape="rectangular"
+            data-logo_alignment="left">
+        </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+           // decodeJwtResponse() is a custom function defined by you
+           // to decode the credential response.
+           console.log("ID_TOKEN",response.credential);
+      
+           
+        }
+      </script>
+      
+
 </body>
 </html>

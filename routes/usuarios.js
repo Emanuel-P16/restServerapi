@@ -42,9 +42,10 @@ const router = Router();
     router.delete('/:id',[
         validarJWT,
         // esAdminRole,
-        tieneRole('ADMIN_ROLE','VENTAS_ROLE','USER_ROLE'),
+        esAdminRole,
         check('id', "No es un ID válido").isMongoId(),
         check('id').custom(existeUsuarioPorId),
+        validarCampos
     ],usuariosDelete)
     router.patch('/',usuariosPatch)
 

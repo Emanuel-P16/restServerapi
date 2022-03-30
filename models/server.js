@@ -12,7 +12,8 @@ class Server{
             busqueda: '/api/busqueda',
             categorias: '/api/categorias',
             productos: '/api/productos',
-            usuariosPath: '/api/usuarios'
+            usuariosPath: '/api/usuarios',
+            uploads: '/api/uploads'
         }
         // this.usuariosPath = '/api/usuarios'
         // this.authPath = '/api/auth';
@@ -44,6 +45,7 @@ class Server{
         this.app.use(this.paths.usuariosPath,require('../routes/usuarios'))
         this.app.use(this.paths.productos,require('../routes/productos'))
         this.app.use(this.paths.categorias,require('../routes/categorias'))
+        this.app.use(this.paths.uploads,require('../routes/uploads'))
 
     }
 
